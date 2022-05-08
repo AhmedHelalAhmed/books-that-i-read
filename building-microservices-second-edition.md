@@ -21,4 +21,46 @@
 - Flexibility: the architecture should help us to solve the problems we might face in the future.
 - Microservices is an alternative to monolithic architecture.
 - Monoliths means unit of deployment when all functionality in a system must be deployed together.
-  47
+- A classic single-process monolithic deployment can make sense for many small organizations.
+- When monolithic grow it brings modular monolith.
+- Modular monolith: a single process consists of separate modules each module can be worked independently but all need to be combined together for deployment
+- Modular monolith example is Shopify
+- Modular monolith with a decomposed database
+- A distributed monolith is a system that consists of multiple services and the entire system must be deployed together.
+- A distributed monolith has all disadvantages of a distributed system and single-process monolith.
+- A distributed monolith is highly coupled architecture.
+- Delivery contention a different developers wanting to change the same piece of code and wanting to push functionality live at different times 
+- Microservice architecture give you more concrete boundaries and more flexibility
+- Advantages of monoliths: 
+  - Much simpler in deployment
+  - Simpler developer workflows, monitoring and troubleshooting
+- Advantages of microservice:
+  - Enabling technology
+  - Log aggregation and distributed tracing (Lightstep- Honeycomb)
+  - Containers and Kubernetes Managing containers across machines
+  - Streaming (Apache Kafka) share data between microservices
+  - public cloud and serverless (Google cloud - Amazon web services - microsoft Azure) => database instance - kubernetes cluster - broker - distributed filesystems
+  - Robustness 
+    In a monolithic service if the service fails everything stops working 
+    with a monolithic system we can run on multiple machines to reduce our chance of failure but with microservices we can build systems that handle the total failure of some constituent services and degrade functionality accordingly
+  - Scaling: 
+    In monolithic service we need to scale everything together but in microservices we can scale just the service we need
+    this will control the costs effectively
+  - Ease of deployment:
+    high risk deployment as we deploy million to release the change.
+  - Organizational Alignment: smaller teams working on smaller codebases tends to be more productive
+  - Composability: reuse of functionality - allowed to consume functionality in different ways and purposes
+- Microservice pain points:
+ - Complexity
+ - Developer experience the limit in the local machine (develop in the cloud) - limit the scope
+ - Technology overload 
+ - Cost: parallel functionalities to get more customers it will not reduce the cost
+ - Reporting: difficult as the data scattered across multiple isolated schemas.
+ - Monitoring and troubleshooting
+ - Security: a lot of information flows over the networks between services.
+ - Testing: run tests across multiple processes all of which need to be deployed and appropriately configured for test scenarios
+ - Latency
+ - Data consistency: multiple processes manage state in different databases in monolith we can rely on database transactions to manage the state changes
+
+- Microservices not for small teams or start ups and you have to pay microservice tax 
+- Microservices give you huge flexibility but you have to pay the cost and face complexity 
