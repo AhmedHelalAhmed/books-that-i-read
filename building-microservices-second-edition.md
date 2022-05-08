@@ -1,0 +1,24 @@
+- Microservices is an architecture choice.
+- Microservices are independently releasable services.
+- Each service encapsulate functionality and make it accessible to other services via network.
+- Microservises can use different technologies.
+- Each service treated as a black box.
+- Each service hosts business functionality on one or more endpoints.
+- Each service hide the technology and encapsulates its own database.
+- Microservices avoid the use of shared databases.
+- Microservices support the concepts of information hiding.
+- Each service don't change in backward-incompatible fashion.
+- Microservices works on isolation and releasable on demand.
+- Microservices comes to provide loosely coupled services.
+- SOA: service oriented architecture in it some of services cooperates to build the system but everything coupled to a database and had to deploy everything together.
+- Microservices means independent deployability.
+- Microservices requires loosely coupled services.
+- Microservices requires explicit well-defined and stable contracts between services.
+- Model services around business domains.
+- Services must be end-to-end slices of business logic and data.
+- Size: the goal of microservices is to have as small an interface as possible.
+- more services means the complexity of the system will be more.
+- Flexibility: the architecture should help us to solve the problems we might face in the future.
+- Microservices is an alternative to monolithic architecture.
+- Monoliths means unit of deployment when all functionality in a system must be deployed together.
+  47
