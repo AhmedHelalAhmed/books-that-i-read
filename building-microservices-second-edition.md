@@ -64,3 +64,44 @@
 
 - Microservices not for small teams or start ups and you have to pay microservice tax 
 - Microservices give you huge flexibility but you have to pay the cost and face complexity 
+## chapter2 
+- What makes a good microservice boundary? 
+- ability to change one service in isolation is the main point
+- information hiding means hide a lot of details behind microservice that allow us to develop independently and make the work done in parallel which improve development time
+- comprehensibility make understand of each microservice in isolation which helps to understand the whole system
+- Flexibility: where a change in functionality of the system in microservice is independently in addition combine the microservices in different way deliver new functionality
+- Cohesion: the code that changes together stay together
+- we want to group functionalities in such a way we can make changes in as a few places as possible
+- we want to sit related behavior together and unrelated behavior to sit elsewhere 
+- we want to change in one place because changing in different places is slower and risky
+- we say cohesion is weak if the related functionality spread across the system and microservice aiming for strong cohesion
+- loosely coupled service a change to one service should not required a change to an other service.
+- domain coupling: one microservice needs another microservice because it has the functionality it provide
+- pass through coupling: one microservice passes data to another microservice because the data is needed by some other microservice further downstream
+- pass through can be solved by make service call the required data service directly which cause domain coupling or ignore the format of the data and treat it like a blob 
+- common coupling: when two or more microservice make a use of a common set of data example shared database, shared memory or shared filesystem
+- content coupling: when upstream service reached into the internals of a downstream service and change its internal state 
+- when external service accessing another microservice's database and change it directly
+- content coupling in it the lines of ownership become less clear and more difficult for developers to change a system.
+
+- we can find microservice boundaries around the domain 
+- ubiquitous language: define a common language to be used in code and describing the domain to aid communication
+- aggregate: a collection of objects that are managed as a single entity 
+- bonded context: an explicit boundary within a business domain that provides functionality to wider system but that also hide complexity
+- ubiquitous language: use the same terms in our code as the users use that make it easier to model the real-world domain and also improve communication
+- Aggregate: a representation of a real domain concept that has a life cycle and can be implemented as a state machine
+- we want to group the code that handle the state transition of an aggregate together
+- one aggregate should manage by one microservice
+- if an outside party requests a state transition in an aggregate can say no as you want to implement your aggregate in such way that illegal state transitions are impossible
+- relationship between aggregates can be represented as foreign key or store as customers/1 or soundcloud:tracks:123 
+- bounded context a large organizational boundary within the scope and explicit responsibilities
+- bounded context contains one or more aggregates some aggregates may be exposed outside the bounded context others may be hidden internally 
+- aggregate is a self-contained state machine that focuses on a single domain concept in our system
+- bounded context a collection of associated aggregates with explicit interface to the wider world 
+- one microservice can manage one or more aggregates but we don't want one aggregate to be managed by more than one microservice
+- event storming: a collaborative brainstorming exercise designed to help surface a domain model
+- Advantages of DDD: information hiding that helps in stable 
+- Volatility: by identify parts of the system going through more frequent change and extract that functionality into their own service
+- Data: the nature of the data you hold and manage can drive you toward different forms of decomposition 
+- Technology: the need to make use of different technology.
+- Organizational: we considering organizational structure to support architecture
