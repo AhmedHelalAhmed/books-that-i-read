@@ -105,3 +105,94 @@
 - Data: the nature of the data you hold and manage can drive you toward different forms of decomposition 
 - Technology: the need to make use of different technology.
 - Organizational: we considering organizational structure to support architecture
+## chapter3
+- microservices are not the goal 
+- you must have a clear understanding of what you expect to achieve 
+- migration should be incremental
+- Make a change, roll that change out, assess it, and go again. Even the act of splitting out one microservice can itself be broken down into a series of small steps
+- you should be thinking of migrating to a microservice architecture only if you can't find any easier way to move toward your end goal with you current architecture 
+- scale your system can be done by spinning up a few copies of your existing monolithic system behind a load balancer may well help you scale your system much more effectively than going through a complex and lengthy decomposition to microservices
+- microservices aren't easy. try the simple stuff first
+- if you do a big-bang rewrite, the only thing you're guaranteed of is a big bang
+- break the big journey into lots of little steps
+- breaking things into smaller pieces also allows you to identify quick wins and learn from them
+- focus on the benefits you expect your change in architecture to bring
+- It's common for the existing monolithic architecture to remain after a shift toward microservices 
+- we can move 10% of functionality that is currently bottleneck leaving the remaining 90% in the monolithic system
+- by making your migration to microservices an incremental journey you are able to chip a way at the existing monolithic architecture delivering improvements along the way, while also importantly knowing when to stop
+- what to split first?!
+- you need to prioritize which microservice to create first 
+- you want to scale the application 
+- the functionality that currently constrains the system's ability to handle load is going to be high priority
+- if you want to improve time to market look at the system's volatility to identify those pieces of functionality that change most frequently and see if they would work as microservices
+- CodeScene is analysis tools to helps to identify volatile parts of codebase 
+- we have to consider what decompositions are viable
+- some functionality impossible to detangled 
+- the functionality you want to migrate might already somewhat self-contained and so the extraction seems very straightforward
+- the decision about decomposition occur based on: 
+  - how easy the extraction is?
+  - what is the benefit of extracting?
+- start with easy small part as you need some momentum early
+- if you try to extract what you consider to be the easiest microservice and aren't able to make it work it might be worth reconsidering
+- with a few successes and some lessons learned you 'll be much better placed to tackle more complex extractions
+- decomposition by layer: 
+  - code first
+  - data first
+- we can decompose UI and backend along with storage 
+- code first tends to be the most common first step
+- code first tends to deliver short-term benefit 
+- if we left the data in the monolithic database the we are storing up lots of pain for the future 
+- we have gained a lot from our new microservice
+- if we found that it was impossible to extract the application code we could abort
+- if the application code extracted but the data proves to be impossible we could be in trouble
+- we need to be sure if we go with code first the data can be decomposed so the extraction is viable
+- if you unsure whether the data can be separated then use data first
+- the benefit of data first is in derisking the full extraction of the microservice 
+- data first forces you to deal up front with issues like loss of enforced data integrity in you database or lack of transactional operations across both sets of data
+- strangler fig pattern: 
+  - frequent use during system rewrites 
+  - describes the process of wrapping an old system with the new system over time allowing the new system to take over more and more features of the old system incrementally
+  - you intercept calls to the existing system if the call to that piece of functionality is implemented in our new microservice architecture it is redirected to the microservice and if the functionality is still provided by the monolith the call is allowed to continue to the monolith itself
+  - the benefit is that is can be done without making any change to the underlying monolithic application which is unaware that it has even been wrapped with a newer system
+- parallel run: 
+  - when the functionality which migrated is critical to your organization 
+  - one way to make sure the new functionality is working well without risking the existing system 
+  - running both monolithic implementation and microservice implementation side by side serving the same requests and comparing the result
+- feature toggle:
+  - is a mechanism that allows a feature to be switched off or on 
+  - to switch between two different implementations of some functionality
+  - it is useful as part of a microservice migration
+  - we can implement the feature toggle in proxy layer to allow for a simple control to switch between implementations
+- data decomposition concerns: issues happens when breaking databases apart
+  - performance
+  - data integrity
+  - transactions
+  - tooling
+  - reporting database
+- performance
+  - we move join operations from the data tier into the microservices and this may be slow down 
+  - the join gone from the data tier to the application code tier
+  - we could aggressively cached - look up in bulk - caching information locally
+  - latency (the response time) maybe increase
+- data integrity
+  - the tables living in different databases 
+  - tables no longer have enforcement of the integrity of data model
+  - you can no longer rely on your database to enforce the integrity of inter-entity relationships
+  - there are workarounds for example coping patterns but we have to resolve how we wanted to handle synchronizing changes
+  - use soft delete 
+- transactions
+  - we lose the safety of the transactions
+  - use Sagas as alternative mechanisms to distributed transactions for managing state changes across multiple microservices this will ass complexity
+- Tooling
+  - there are many tools help us manage the process of changing the schema of a relational database
+  - each schema change is defined in a version-controlled delta script which run in strict order 
+  - some tools like Flyway or Liquibase 
+- reporting database
+  - we break database to hide access to internal data storage 
+  - by hiding direct access to our database we are able to create stable interfaces 
+  - so accessing the data become from REST API 
+  - we create dedicated database that designed for external access 
+  - it responsible to push data from internal storage to the external access
+  - allows us to hide internal state management while still presenting the data in a database
+  - we should expose only the minimum data 
+  - treat like a microservice
